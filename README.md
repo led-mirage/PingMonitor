@@ -23,7 +23,7 @@ PingMonitor is a lightweight Windows application that monitors the availability 
 
 Pre-built executable for Windows is available on the Release page.
 
-1. Download the latest release from the [Releases](https://github.com/your-repo/PingMonitor/releases) page.
+1. Download the latest release from the [Releases](https://github.com/led-mirage/PingMonitor/releases) page.
 2. Extract the zip file to your desired location.
 3. Run `PingMonitor.exe`.
 
