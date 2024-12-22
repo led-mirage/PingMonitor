@@ -35,7 +35,7 @@ If Windows Defender or other antivirus software flags the executable, please ref
 To ensure the safety of the application, I performed a scan using VirusTotal. Below is the scan result:
 
 - Detections: 1/68
-- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/c371284785b2469e81202793422b612c0f7b0943fb546fc0a9c5fba029c64c13)
+- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/32a6d72ba9e0127b9716fbd0a3f16fd3b2943f0a7c84ae54d504d6e5823a3c16)
 
 💡 Additional Information:  
 The detection by one engine out of 68 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
@@ -118,6 +118,16 @@ Icons used in this project were sourced from Flaticon.com:
 - <a href="https://www.flaticon.com/free-icons/cross" title="cross icons">Cross icons created by Roundicons - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/previous" title="previous icons">Previous icons created by Those Icons - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Those Icons - Flaticon</a>
+
+## Release History
+
+### **v1.0.1**: 2024/12/22
+- Fix: Ensure window position and size are within screen bounds on restore
+  - Added checks to ensure window does not go out of screen bounds after being displayed on a different monitor.
+  - Refactored code to move position and size restoration logic into a separate method.
+
+### **v1.0.0**: 2024/12/22
+- Initial release
 
 ## Copyright
 
