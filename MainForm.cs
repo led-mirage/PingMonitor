@@ -8,7 +8,7 @@ namespace PingMonitor;
 public partial class MainForm : Form
 {
     public const string AppName = "PingMonitor";
-    public const string AppVersion = "1.0.0";
+    public const string AppVersion = "1.0.1";
     public const string Copyright = "© 2024 led-mirage";
 
     private int currentHostGroupIndex = 0;
