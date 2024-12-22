@@ -35,7 +35,7 @@ If Windows Defender or other antivirus software flags the executable, please ref
 To ensure the safety of the application, I performed a scan using VirusTotal. Below is the scan result:
 
 - Detections: 1/68
-- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/037e3d04ee4ad157706e2319c303d068470b6305dca1b6c8a97188fc68d4dd09)
+- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/c371284785b2469e81202793422b612c0f7b0943fb546fc0a9c5fba029c64c13)
 
 💡 Additional Information:  
 The detection by one engine out of 68 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
