@@ -1,6 +1,7 @@
 // © 2024 led-mirage. All rights reserved.
 
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace PingMonitor;
@@ -8,7 +9,6 @@ namespace PingMonitor;
 public partial class MainForm : Form
 {
     public const string AppName = "PingMonitor";
-    public const string AppVersion = "1.0.1";
     public const string Copyright = "© 2024 led-mirage";
 
     private int currentHostGroupIndex = 0;
@@ -51,6 +51,16 @@ public partial class MainForm : Form
         SetupUI();
 
         StartPingMonitoring(hostGroups[currentHostGroupIndex]);
+    }
+
+    public static string AppVersion
+    {
+        get
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var informationalVersion = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+            return informationalVersion ?? "";
+        }
     }
 
     protected override void OnLoad(EventArgs e)
@@ -279,7 +289,7 @@ public partial class MainForm : Form
                         }
                         if (!pingCancelTokenSource.Token.IsCancellationRequested)
                         {
-                            this.Invoke((MethodInvoker)delegate
+                            this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                             {
                                 if (labels.Length <= index || pictureBoxes.Length <= index) return;
                                 labels[index].Text = $"{hosts[index]}";
