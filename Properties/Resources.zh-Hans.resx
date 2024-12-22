@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ErrorImageNotFound" xml:space="preserve">
+    <value>无法找到图像文件。</value>
+  </data>
+  <data name="AboutMenu" xml:space="preserve">
+    <value>关于 {0}...(&amp;A)</value>
+  </data>
+</root>

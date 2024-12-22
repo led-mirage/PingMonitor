@@ -1,0 +1,19 @@
+[Public Servers]
+www.google.com
+aws.amazon.com
+azure.microsoft.com
+www.office.com
+www.cloudflare.com
+www.github.com
+www.dropbox.com
+
+[Local Devices]
+192.168.10.1
+192.168.20.100
+192.168.20.101
+192.168.20.1
+192.168.20.100
+192.168.20.101
+192.168.20.102
+192.168.20.103
+192.168.20.104

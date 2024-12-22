@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="ErrorImageNotFound" xml:space="preserve">
+    <value>O arquivo de imagem não pôde ser encontrado.</value>
+  </data>
+  <data name="AboutMenu" xml:space="preserve">
+    <value>Sobre {0}...(&amp;A)</value>
+  </data>
+</root>
