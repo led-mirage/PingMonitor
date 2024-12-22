@@ -57,6 +57,17 @@ public partial class MainForm : Form
     {
         base.OnLoad(e);
 
+        RestoreFormPosition();
+
+        IntPtr systemMenu = GetSystemMenu(this.Handle, false);
+        const uint SC_CLOSE = 0xF060;
+        string menuText = string.Format(LocalizationManager.GetString("AboutMenu"), AppName);
+        InsertMenu(systemMenu, SC_CLOSE, MF_STRING, ABOUT_MENU_ID, menuText);
+        InsertMenu(systemMenu, SC_CLOSE, MF_SEPARATOR, 0, "");
+    }
+
+    private void RestoreFormPosition()
+    {
         int width = Properties.Settings.Default.FormWidth;
         int height = Properties.Settings.Default.FormHeight;
         int left = Properties.Settings.Default.FormLeft;
@@ -73,11 +84,15 @@ public partial class MainForm : Form
             this.Top = top;
         }
 
-        IntPtr systemMenu = GetSystemMenu(this.Handle, false);
-        const uint SC_CLOSE = 0xF060;
-        string menuText = string.Format(LocalizationManager.GetString("AboutMenu"), AppName);
-        InsertMenu(systemMenu, SC_CLOSE, MF_STRING, ABOUT_MENU_ID, menuText);
-        InsertMenu(systemMenu, SC_CLOSE, MF_SEPARATOR, 0, "");
+        Rectangle screenBounds = Screen.GetWorkingArea(this);
+        if (this.Left < screenBounds.Left)
+            this.Left = screenBounds.Left;
+        if (this.Top < screenBounds.Top)
+            this.Top = screenBounds.Top;
+        if (this.Right > screenBounds.Right)
+            this.Left = screenBounds.Right - this.Width;
+        if (this.Bottom > screenBounds.Bottom)
+            this.Top = screenBounds.Bottom - this.Height;
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)
