@@ -9,6 +9,7 @@ public static class AppConfig
     private const int DefaultPingTimeoutMs = 500;
     private const string DefaultFontFamily = "Segoe UI";
     private const int DefaultFontSize = 10;
+    private const string DefaultAddressFamilyPreference = "Auto";
 
     public static int IntervalMs
     {
@@ -50,4 +51,12 @@ public static class AppConfig
         }
     }
 
+    public static AddressFamilyPreference AddressFamilyPreference
+    {
+        get
+        {
+            string value = ConfigurationManager.AppSettings["AddressFamilyPreference"] ?? DefaultAddressFamilyPreference;
+            return Enum.TryParse(value, out AddressFamilyPreference preference) ? preference : AddressFamilyPreference.Auto;
+        }
+    }
 }
