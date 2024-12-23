@@ -12,6 +12,7 @@ PingMonitor is a lightweight Windows application that monitors the availability 
   - Ping timeout
   - Font family
   - Font size
+  - Address family preference
 - **Visual Feedback**: Displays the status of each host with a green (reachable) or red (unreachable) indicator.
 - **Group Switching**: Instantly switch between different host groups with no delays, allowing for seamless monitoring of multiple networks.
 - **Resizable UI**: Saves the window size and position between sessions.
@@ -28,7 +29,9 @@ Pre-built executable for Windows is available on the Release page.
 3. Run `PingMonitor.exe`.
 
 💡 Note:  
-If Windows Defender or other antivirus software flags the executable, please refer to the VirusTotal Scan Result for more information.
+- If Windows Defender or other antivirus software flags the executable, please refer to the VirusTotal Scan Result for more information.
+- **Before updating to a new version, please backup your hosts.txt file to avoid overwriting any custom configurations.**
+- **The PingMonitor.dll.config (App.config) file may contain important updates in new versions. If you have customized this file, carefully merge your changes to include any new settings.**
 
 ### v1.1.0 VirusTotal Scan Result
 
@@ -126,7 +129,7 @@ Icons used in this project were sourced from Flaticon.com:
 
 ## Release History
 
-### **v1.1.0**: 202x/xx/xx
+### **v1.1.0**: 2024/12/23
 
 - Feature: Added AddressFamilyPreference setting
   - Users can now specify 'IPv4', 'IPv6', or 'Auto' preferences for ping operations.
