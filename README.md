@@ -12,6 +12,7 @@ PingMonitor is a lightweight Windows application that monitors the availability 
   - Ping timeout
   - Font family
   - Font size
+  - Address family preference
 - **Visual Feedback**: Displays the status of each host with a green (reachable) or red (unreachable) indicator.
 - **Group Switching**: Instantly switch between different host groups with no delays, allowing for seamless monitoring of multiple networks.
 - **Resizable UI**: Saves the window size and position between sessions.
@@ -28,17 +29,19 @@ Pre-built executable for Windows is available on the Release page.
 3. Run `PingMonitor.exe`.
 
 💡 Note:  
-If Windows Defender or other antivirus software flags the executable, please refer to the VirusTotal Scan Result for more information.
+- If Windows Defender or other antivirus software flags the executable, please refer to the VirusTotal Scan Result for more information.
+- **Before updating to a new version, please backup your hosts.txt file to avoid overwriting any custom configurations.**
+- **The PingMonitor.dll.config (App.config) file may contain important updates in new versions. If you have customized this file, carefully merge your changes to include any new settings.**
 
-### VirusTotal Scan Result
+### v1.1.0 VirusTotal Scan Result
 
 To ensure the safety of the application, I performed a scan using VirusTotal. Below is the scan result:
 
-- Detections: 1/68
-- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/32a6d72ba9e0127b9716fbd0a3f16fd3b2943f0a7c84ae54d504d6e5823a3c16)
+- Detections: 1/67
+- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/a9a70da3b96d54fdc2612c1584aaed92403a7565c0e6acd4b5a95cc8a7d1a40f)
 
 💡 Additional Information:  
-The detection by one engine out of 68 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
+The detection by one engine out of 67 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
 
 ## Configuration
 
@@ -68,6 +71,10 @@ The application reads customizable settings from `PingMonitor.dll.config`. These
 - `PingTimeoutMs`: Ping timeout in milliseconds (default: 500).
 - `FontFamily`: Specifies the font family used for displaying host names and status labels in the application's user interface.
 - `FontSize`: Specifies the font size used for displaying host names and status labels in the application's user interface.
+- `AddressFamilyPreference`: Specifies the preferred IP address family for performing pings. Options are 'IPv4', 'IPv6', and 'Auto' (default: 'Auto'). If the specified family is not available, it will fall back to the other.
+  - **IPv4**: Prioritize IPv4 addresses.
+  - **IPv6**: Prioritize IPv6 addresses.
+  - **Auto**: Automatically select the address family based on the system's default behavior.
 
 Example snippet from `App.config`:
 
@@ -78,6 +85,7 @@ Example snippet from `App.config`:
   <add key="PingTimeoutMs" value="500" />
   <add key="FontFamily" value="Segoe UI" />
   <add key="FontSize" value="10" />
+  <add key="AddressFamilyPreference" value="IPv4" />
 </appSettings>
 ```
 
@@ -121,12 +129,20 @@ Icons used in this project were sourced from Flaticon.com:
 
 ## Release History
 
+### **v1.1.0**: 2024/12/23
+
+- Feature: Added AddressFamilyPreference setting
+  - Users can now specify 'IPv4', 'IPv6', or 'Auto' preferences for ping operations.
+  - If the specified family is not available, it will fall back to the other.
+
 ### **v1.0.1**: 2024/12/22
+
 - Fix: Ensure window position and size are within screen bounds on restore
   - Added checks to ensure window does not go out of screen bounds after being displayed on a different monitor.
   - Refactored code to move position and size restoration logic into a separate method.
 
 ### **v1.0.0**: 2024/12/22
+
 - Initial release
 
 ## Copyright

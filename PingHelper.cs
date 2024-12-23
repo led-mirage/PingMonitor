@@ -4,12 +4,14 @@ using System.Net.NetworkInformation;
 
 public static class PingHelper
 {
-    public static async Task<PingReply> SendPingAsync(string host, int timeout, CancellationToken cancellationToken)
+    public static async Task<PingReply> SendPingAsync(
+        string host, int timeout, CancellationToken cancellationToken, AddressFamilyPreference preference = AddressFamilyPreference.Auto)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         using var ping = new Ping();
-        Task<PingReply> pingTask = ping.SendPingAsync(host, timeout);
+        string ipaddress = DnsHelper.GetHostAddress(host, preference) ?? throw new PingException("Failed to resolve host address");
+        Task<PingReply> pingTask = ping.SendPingAsync(ipaddress, timeout);
 
         try
         {
@@ -40,13 +42,15 @@ public static class PingHelper
         }
     }
 
-    public static async Task<PingReply> SendPingAsync(string host, CancellationToken cancellationToken)
+    public static async Task<PingReply> SendPingAsync(
+        string host, CancellationToken cancellationToken, AddressFamilyPreference preference = AddressFamilyPreference.Auto)
     {
         // タイムアウトのデフォルト値は 5000 ミリ秒とする
-        return await SendPingAsync(host, 5000, cancellationToken);
+        return await SendPingAsync(host, 5000, cancellationToken, preference);
     }
 
-    public static async Task<PingReply> SendPingWithRetryAsync(string host, int timeout, int retryCount, CancellationToken cancellationToken)
+    public static async Task<PingReply> SendPingWithRetryAsync(
+        string host, int timeout, int retryCount, CancellationToken cancellationToken, AddressFamilyPreference preference = AddressFamilyPreference.Auto)
     {
         PingReply? pingReply = null;
 
@@ -54,7 +58,7 @@ public static class PingHelper
         {
             try
             {
-                pingReply = await SendPingAsync(host, timeout, cancellationToken);
+                pingReply = await SendPingAsync(host, timeout, cancellationToken, preference);
                 
                 if (pingReply.Status == IPStatus.TimedOut)
                 {
@@ -82,7 +86,8 @@ public static class PingHelper
         return pingReply ?? throw new PingException("Ping operation failed");
     }
 
-    public static async Task<PingReply> SendPingWithRetryAsync(string host, int retryCount, CancellationToken cancellationToken)
+    public static async Task<PingReply> SendPingWithRetryAsync(
+        string host, int retryCount, CancellationToken cancellationToken, AddressFamilyPreference preference = AddressFamilyPreference.Auto)
     {
         return await SendPingWithRetryAsync(host, 5000, retryCount, cancellationToken);
     }

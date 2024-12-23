@@ -262,6 +262,7 @@ public partial class MainForm : Form
         int intervalMs = AppConfig.IntervalMs;
         int retryCount = AppConfig.RetryCount;
         int timeout = AppConfig.PingTimeoutMs;
+        AddressFamilyPreference preference = AppConfig.AddressFamilyPreference;
 
         try
         {
@@ -280,7 +281,7 @@ public partial class MainForm : Form
                         bool isAlive = false;
                         try
                         {
-                            PingReply pingReply = await PingHelper.SendPingWithRetryAsync(hosts[index], timeout, retryCount, pingCancelTokenSource.Token);
+                            PingReply pingReply = await PingHelper.SendPingWithRetryAsync(hosts[index], timeout, retryCount, pingCancelTokenSource.Token, preference);
                             isAlive = pingReply.Status == IPStatus.Success;
                         }
                         catch (Exception)
