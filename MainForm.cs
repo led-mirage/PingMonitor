@@ -13,8 +13,9 @@ public partial class MainForm : Form
 
     private int currentHostGroupIndex = 0;
     private List<HostGroup> hostGroups = new List<HostGroup>();
-    private Label[] labels = Array.Empty<Label>();
+    private Label[] hostnameLabels = Array.Empty<Label>();
     private PictureBox[] pictureBoxes = Array.Empty<PictureBox>();
+    private Label[] responseTimeLabels = Array.Empty<Label>();
     private FlowLayoutPanel? flowLayoutPanel;
     private Control? statusTable;
     private Image? okImage;
@@ -183,7 +184,7 @@ public partial class MainForm : Form
 
         var tableLayoutPanel = new TableLayoutPanel
         {
-            ColumnCount = 2,
+            ColumnCount = 3,
             RowCount = hostGroup.HostNames.Count,
             Dock = DockStyle.Fill,
             AutoSize = true,
@@ -195,9 +196,10 @@ public partial class MainForm : Form
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         }
 
-        labels = new Label[hostGroup.HostNames.Count];
-
+        hostnameLabels = new Label[hostGroup.HostNames.Count];
         pictureBoxes = new PictureBox[hostGroup.HostNames.Count];
+        responseTimeLabels = new Label[hostGroup.HostNames.Count];
+
         for (int i = 0; i < hostGroup.HostNames.Count; i++)
         {
             pictureBoxes[i] = new PictureBox
@@ -210,7 +212,7 @@ public partial class MainForm : Form
             };
             tableLayoutPanel.Controls.Add(pictureBoxes[i], 0, i);
 
-            labels[i] = new Label
+            hostnameLabels[i] = new Label
             {
                 AutoSize = true,
                 Text = $"{hostGroup.HostNames[i]}",
@@ -220,7 +222,19 @@ public partial class MainForm : Form
                 Anchor = AnchorStyles.Left | AnchorStyles.Top,
                 Font = new Font(AppConfig.FontFamily, baseFontSize)
             };
-            tableLayoutPanel.Controls.Add(labels[i], 1, i);
+            tableLayoutPanel.Controls.Add(hostnameLabels[i], 1, i);
+
+            responseTimeLabels[i] = new Label
+            {
+                AutoSize = true,
+                Text = "",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Margin = new Padding(this.ScaleValue(baseFontSize), 0, 0, this.ScaleValue(baseFontSize / 4)),
+                Anchor = AnchorStyles.Left | AnchorStyles.Top,
+                Font = new Font(AppConfig.FontFamily, baseFontSize * 0.8f)
+            };
+            tableLayoutPanel.Controls.Add(responseTimeLabels[i], 2, i);
         }
 
         statusTable = tableLayoutPanel;
@@ -235,8 +249,9 @@ public partial class MainForm : Form
             statusTable = null;
         }
 
-        labels = Array.Empty<Label>();
+        hostnameLabels = Array.Empty<Label>();
         pictureBoxes = Array.Empty<PictureBox>();
+        responseTimeLabels = Array.Empty<Label>();
     }
 
     private void GroupSelectControl_GroupChanged(object? sender, int groupIndex)
@@ -279,10 +294,12 @@ public partial class MainForm : Form
                     pingTasks[i] = Task.Run(async () =>
                     {
                         bool isAlive = false;
+                        long responseTime = 0;
                         try
                         {
                             PingReply pingReply = await PingHelper.SendPingWithRetryAsync(hosts[index], timeout, retryCount, pingCancelTokenSource.Token, preference);
                             isAlive = pingReply.Status == IPStatus.Success;
+                            responseTime = pingReply.RoundtripTime;
                         }
                         catch (Exception)
                         {
@@ -292,9 +309,10 @@ public partial class MainForm : Form
                         {
                             this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                             {
-                                if (labels.Length <= index || pictureBoxes.Length <= index) return;
-                                labels[index].Text = $"{hosts[index]}";
+                                if (hostnameLabels.Length <= index || pictureBoxes.Length <= index || responseTimeLabels.Length <= index) return;
+                                hostnameLabels[index].Text = $"{hosts[index]}";
                                 pictureBoxes[index].Image = isAlive ? okImage : ngImage;
+                                responseTimeLabels[index].Text = isAlive ? $"{responseTime}ms" : "---";
                             });
                         }
                     });
