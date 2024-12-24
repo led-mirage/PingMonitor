@@ -5,6 +5,7 @@ PingMonitor is a lightweight Windows application that monitors the availability 
 ## Features
 
 - **Host Monitoring**: Monitors multiple hosts in real-time by sending periodic ping requests.
+- **Response Time Display**: Shows the response time (in milliseconds) for each host, enabling users to monitor network performance and identify slow connections.
 - **Retry Mechanism**: Retries failed ping requests to ensure reliability.
 - **Customizable Settings**:
   - Ping interval
@@ -33,15 +34,15 @@ Pre-built executable for Windows is available on the Release page.
 - **Before updating to a new version, please backup your hosts.txt file to avoid overwriting any custom configurations.**
 - **The PingMonitor.dll.config (App.config) file may contain important updates in new versions. If you have customized this file, carefully merge your changes to include any new settings.**
 
-### v1.1.0 VirusTotal Scan Result
+### v1.2.0 VirusTotal Scan Result
 
 To ensure the safety of the application, I performed a scan using VirusTotal. Below is the scan result:
 
-- Detections: 1/67
-- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/a9a70da3b96d54fdc2612c1584aaed92403a7565c0e6acd4b5a95cc8a7d1a40f)
+- Detections: 1/68
+- Scan Details: [View the VirusTotal scan result](https://www.virustotal.com/gui/file/987d7834550ff424a9d883ea01e1fd8b8fa932db75be9559b79130b52dc4bb9e)
 
 💡 Additional Information:  
-The detection by one engine out of 67 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
+The detection by one engine out of 68 may be a false positive. If you have any concerns, feel free to inspect the scan details via the link above.
 
 ## Configuration
 
@@ -128,6 +129,12 @@ Icons used in this project were sourced from Flaticon.com:
 - <a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Those Icons - Flaticon</a>
 
 ## Release History
+
+### **v1.2.0**: 2024/12/24
+
+- Feature: Added response time display for hosts!
+  - **Response Time Display**: The response time (in milliseconds) for each host is now shown alongside its status (e.g., 12ms). This makes monitoring host performance more informative and efficient.
+  - **Enhanced Usability**: Quickly identify servers with slow response times and diagnose potential network issues with ease. Perfect for proactive monitoring and troubleshooting!
 
 ### **v1.1.0**: 2024/12/23
 
